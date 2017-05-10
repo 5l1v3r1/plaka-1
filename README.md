@@ -8,10 +8,10 @@ bir ilin plaka kodunu ya da plaka kodundan adını bulan yardımcı uygulama
 ```ruby
 plaka = Plaka.new
 
-plaka.name_of(39)
+plaka.show(39)
 => "Kırklareli"
 
-plaka.code_of('kırklareli')
+plaka.show('kırklareli')
 => 39
 
 plaka.list
