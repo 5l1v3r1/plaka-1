@@ -50,7 +50,6 @@ class Plaka
       @codes.fetch(param.to_s)  # return name of city
     end
   end
-
 end
 
 plaka = Plaka.new
