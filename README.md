@@ -22,13 +22,7 @@ girilen plaka kodu integer veya string cinsinden olabilir
 puts "plaka.show(1) => #{plaka.show(1)}"
 puts "plaka.show('1') => #{plaka.show('1')}"
 
-# NOTES
-
-codes = {'1'  => 'adana'}
-codes.fetch('1')
-=> "adana"
-
-codes.key('adana')
+plaka.show('adana')
 => "1"
 
 plaka.show('KİLİS')
