@@ -6,7 +6,7 @@ using TurkishSupport
 class Plaka
   def initialize
     @codes = { 
-               '1'  => 'adana',          '2' => 'adıyaman',   '3' => 'afyon', 
+               '1'  => 'adana',          '2' => 'adıyaman',   '3' => 'afyonkarahisar', 
                '4'  => 'ağrı',          '5'  => 'amasya',     '6' => 'ankara',
                '7'  => 'antalya',       '8'  => 'artvin',     '9' => 'aydın',
                '10' => 'balıkesir',     '11' => 'bilecik',    '12' => 'bingöl',
@@ -16,7 +16,7 @@ class Plaka
                '22' => 'edirne',        '23' => 'elazığ',     '24' => 'erzincan',
                '25' => 'erzurum',       '26' => 'eskişehir',  '27' => 'gaziantep',
                '28' => 'giresun',       '29' => 'gümüşhane',  '30' => 'hakkari',
-               '31' => 'hatay',         '32' => 'ısparta',    '33' => 'içel',
+               '31' => 'hatay',         '32' => 'ısparta',    '33' => 'mersin',
                '34' => 'istanbul',      '35' => 'izmir',      '36' => 'kars',
                '37' => 'kastamonu',     '38' => 'kayseri',    '39' => 'kırklareli',
                '40' => 'kırşehir',      '41' => 'kocaeli',    '42' => 'konya',
