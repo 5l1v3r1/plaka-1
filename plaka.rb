@@ -6,7 +6,7 @@ using TurkishSupport
 class Plaka
   def initialize
     @codes = { 
-               '1'  => 'adana',          '2' => 'adıyaman',   '3' => 'afyonkarahisar', 
+               '1'  => 'adana',          '2' => 'adıyaman',   '3' => ['afyon', 'afyonkarahisar'], 
                '4'  => 'ağrı',          '5'  => 'amasya',     '6' => 'ankara',
                '7'  => 'antalya',       '8'  => 'artvin',     '9' => 'aydın',
                '10' => 'balıkesir',     '11' => 'bilecik',    '12' => 'bingöl',
@@ -16,7 +16,7 @@ class Plaka
                '22' => 'edirne',        '23' => 'elazığ',     '24' => 'erzincan',
                '25' => 'erzurum',       '26' => 'eskişehir',  '27' => 'gaziantep',
                '28' => 'giresun',       '29' => 'gümüşhane',  '30' => 'hakkari',
-               '31' => 'hatay',         '32' => 'ısparta',    '33' => 'mersin',
+               '31' => 'hatay',         '32' => 'ısparta',    '33' => ['mersin', 'içel'],
                '34' => 'istanbul',      '35' => 'izmir',      '36' => 'kars',
                '37' => 'kastamonu',     '38' => 'kayseri',    '39' => 'kırklareli',
                '40' => 'kırşehir',      '41' => 'kocaeli',    '42' => 'konya',
@@ -45,17 +45,32 @@ class Plaka
 
     # convert parameter to string to verify whether it is a string or integer
     if param.to_i == 0    # it is a string
-      @codes.key(param.downcase).to_i    # return traffic code
+      # c.each { |i| p i[1].include?('b') }
+      if @codes.key(param.downcase).nil?
+        # city may have multiple names like İçel/Mersin
+        @codes.each_with_index do |i, index|
+          return i[0].to_i if (i[1].is_a? Array) && (i[1].include?(param.downcase))
+        end
+      else
+        @codes.key(param.downcase).to_i    # return traffic code
+      end
     else
-      @codes.fetch(param.to_s)  # return name of city
+      if @codes.fetch(param.to_s).is_a? Array
+        @codes.fetch(param.to_s).first
+      else
+        @codes.fetch(param.to_s)  # return name of city  
+      end
     end
   end
 end
 
 plaka = Plaka.new
-puts "plaka.show(39)        => #{plaka.show(39)}"
-puts "plaka.show('35')      => #{plaka.show('35')}"
-puts "plaka.show('kilis')   => #{plaka.show('kilis')}"
-puts "plaka.show('KİLİS')   => #{plaka.show('KİLİS')}"
-puts "plaka.show('ÇAnkırı') => #{plaka.show('ÇAnkırı')}"
-
+puts "plaka.show(39)         => #{plaka.show(39)}"
+puts "plaka.show('35')       => #{plaka.show('35')}"
+puts "plaka.show('kilis')    => #{plaka.show('kilis')}"
+puts "plaka.show('KİLİS')    => #{plaka.show('KİLİS')}"
+puts "plaka.show('ÇAnkırı')  => #{plaka.show('ÇAnkırı')}"
+puts "plaka.show(33)         => #{plaka.show(33)}"
+puts "plaka.show(3)          => #{plaka.show(3)}"
+puts "plaka.show('mersin')   => #{plaka.show('mersin')}"
+puts "plaka.show('içel')     => #{plaka.show('içel')}"
