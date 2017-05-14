@@ -43,6 +43,7 @@ class Plaka
   def show(param = nil)
     param unless param.nil?
 
+
     # convert parameter to string to verify whether it is a string or integer
     if param.to_i == 0    # it is a string
       # c.each { |i| p i[1].include?('b') }
@@ -62,6 +63,23 @@ class Plaka
       end
     end
   end
+
+  def has_many_names(city)
+    # return true or false
+    # TO DO
+
+    # first check if 
+  end
+
+  def valid(city)
+    # return true or false
+    # TO DO
+    # plaka.valid(39) => true
+    # plaka.valid(99) => false
+
+    # first check if 
+  end
+
 end
 
 plaka = Plaka.new
@@ -74,3 +92,5 @@ puts "plaka.show(33)         => #{plaka.show(33)}"
 puts "plaka.show(3)          => #{plaka.show(3)}"
 puts "plaka.show('mersin')   => #{plaka.show('mersin')}"
 puts "plaka.show('içel')     => #{plaka.show('içel')}"
+# puts "plaka.show(99)         => #{plaka.show(99)}"
+
