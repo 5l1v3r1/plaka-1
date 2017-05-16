@@ -3,6 +3,16 @@
 
 bir ilin plaka kodunu ya da plaka kodundan adını bulan yardımcı uygulama
 
+# importing module
+
+```ruby
+require './plaka'
+
+plaka = Plaka.new
+puts plaka.show('antalya')
+```
+
+
 # NOTLAR
 
 ```ruby
