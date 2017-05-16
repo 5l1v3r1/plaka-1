@@ -37,6 +37,20 @@ class Plaka
   end
 
   def list
+    codes_list = {}
+
+    @codes.each_pair do |code, city|
+      if city.is_a? Array
+        codes_list.merge!({"#{code}" => "#{city.first}"})
+      else
+        codes_list.merge!({"#{code}" => "#{city}"})
+      end
+    end
+
+    codes_list
+  end
+
+  def list_all
     @codes
   end
 
@@ -76,9 +90,9 @@ class Plaka
     # integer as string check
     city = self.show(param.to_i) if (param.is_a? String) && (param.to_i > 0)
 
-    return false if (param.is_a? String) && (param.to_i == 0) && (self.list.key(param.downcase))
+    return false if (param.is_a? String) && (param.to_i == 0) && (self.list_all.key(param.downcase))
 
-    self.list.key(city) ? (return false) : (return true)    
+    self.list_all.key(city) ? (return false) : (return true)    
   end
 
   def valid?(param = nil)
@@ -131,6 +145,9 @@ class Plaka
 end
 
 plaka = Plaka.new
+# puts plaka.list
+# puts plaka.list_all
+
 # puts "plaka.show(39)           => #{plaka.show(39)}"
 # puts "plaka.show('35')         => #{plaka.show('35')}"
 # puts "plaka.show('kilis')      => #{plaka.show('kilis')}"
