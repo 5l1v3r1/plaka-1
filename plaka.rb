@@ -66,9 +66,19 @@ class Plaka
   end
 
   def has_many_names(param = nil)
+    # plaka.has_many_names(33)        => true
+    # plaka.has_many_names('mersin')  => true
     return false unless self.valid?(param)
+    return false unless self.exists?(param)
 
-    # TO DO: 
+    # find integer(city_code)
+    city = self.show(param) if param.is_a? Integer
+    # integer as string check
+    city = self.show(param.to_i) if (param.is_a? String) && (param.to_i > 0)
+
+    return false if (param.is_a? String) && (param.to_i == 0) && (self.list.key(param.downcase))
+
+    self.list.key(city) ? (return false) : (return true)    
   end
 
   def valid?(param = nil)
@@ -97,7 +107,10 @@ class Plaka
     # find integer(city_code)
     return self.list.include?(param.to_s) if param.is_a? Integer
 
-    # integer as string check ('33') => true ('0') => false, ('9999') => false
+    # integer as string check
+      # ('33')    => true
+      # ('0')     => false
+      # ('9999')  => false
     return self.list.include?(param.to_s) if (param.is_a? String) && (param.to_i > 0)
 
     # param is found in the hash key plaka.exists?('antalya') => true
@@ -139,12 +152,22 @@ plaka = Plaka.new
 # puts "plaka.valid?('antalya')  => #{plaka.valid?('antalya')}"
 # puts "plaka.valid?(' ')        => #{plaka.valid?(' ')}"
 
-puts "plaka.exists?('33')      => #{plaka.exists?('33')}"
-puts "plaka.exists?('0')       => #{plaka.exists?('0')}"
-puts "plaka.exists?('antalya') => #{plaka.exists?('antalya')}"
-puts "plaka.exists?('mersin')  => #{plaka.exists?('mersin')}"
-puts "plaka.exists?('içel')    => #{plaka.exists?('içel')}"
-puts "plaka.exists?('isviçre') => #{plaka.exists?('isviçre')}"
-puts "plaka.exists?(0)         => #{plaka.exists?(0)}"
-puts "plaka.exists?(33)        => #{plaka.exists?(33)}"
-puts "plaka.exists?(99)        => #{plaka.exists?(99)}"
+# puts "plaka.exists?('33')      => #{plaka.exists?('33')}"
+# puts "plaka.exists?('0')       => #{plaka.exists?('0')}"
+# puts "plaka.exists?('antalya') => #{plaka.exists?('antalya')}"
+# puts "plaka.exists?('mersin')  => #{plaka.exists?('mersin')}"
+# puts "plaka.exists?('içel')    => #{plaka.exists?('içel')}"
+# puts "plaka.exists?('isviçre') => #{plaka.exists?('isviçre')}"
+# puts "plaka.exists?(0)         => #{plaka.exists?(0)}"
+# puts "plaka.exists?(33)        => #{plaka.exists?(33)}"
+# puts "plaka.exists?(99)        => #{plaka.exists?(99)}"
+
+# puts plaka.has_many_names('afyon')
+# puts plaka.has_many_names('istanbul')
+# puts plaka.has_many_names(33)
+# puts plaka.has_many_names(34)
+# puts plaka.has_many_names('33')
+# puts plaka.has_many_names('34')
+# puts plaka.has_many_names('isviçre')
+# puts plaka.has_many_names(0)
+# puts plaka.has_many_names('0')
