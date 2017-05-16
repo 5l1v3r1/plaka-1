@@ -45,7 +45,7 @@ class Plaka
 
     # convert parameter to string to verify whether it is a string or integer
     if param.to_i == 0    # it is a string
-      # check first, whet
+      # check first...
       if @codes.key(param.downcase).nil?
         # city may have multiple names like İçel/Mersin
         @codes.each_with_index do |i, index|
@@ -56,7 +56,6 @@ class Plaka
       else
         @codes.key(param.downcase).to_i    # return traffic code
       end
-
     else
       if @codes.fetch(param.to_s).is_a? Array
         @codes.fetch(param.to_s).first
@@ -66,11 +65,10 @@ class Plaka
     end
   end
 
-  def has_many_names(city = nil)
-    # return true or false
-    # TO DO
+  def has_many_names(param = nil)
+    return false unless self.valid?(param)
 
-    # first check if 
+    # TO DO: 
   end
 
   def valid?(param = nil)
@@ -92,29 +90,61 @@ class Plaka
       true
     end
   end
+
+  def exists?(param = nil)
+    return false unless self.valid?(param)
+
+    # find integer(city_code)
+    return self.list.include?(param.to_s) if param.is_a? Integer
+
+    # integer as string check ('33') => true ('0') => false, ('9999') => false
+    return self.list.include?(param.to_s) if (param.is_a? String) && (param.to_i > 0)
+
+    # param is found in the hash key plaka.exists?('antalya') => true
+    return true unless (param.is_a? String) && (param.to_i == 0) && (self.list.key(param.downcase).nil?)
+
+    # param is NOT found in the hash key, search arrays of each hash key
+    if (param.is_a? String) && (param.to_i == 0) && (@codes.key(param.downcase).nil?)
+      @codes.each_with_index do |i, index|
+        if (i[1].is_a? Array) && (i[1].include?(param.downcase))
+          return ((i[0].to_i).is_a? Integer)
+        end
+
+      end
+      # param is not found in the arrays of each hash key! 
+      false
+    end
+  end
 end
 
 plaka = Plaka.new
-puts plaka.exists?(30)
-# puts "plaka.show(39)         => #{plaka.show(39)}"
-# puts "plaka.show('35')       => #{plaka.show('35')}"
-# puts "plaka.show('kilis')    => #{plaka.show('kilis')}"
-# puts "plaka.show('KİLİS')    => #{plaka.show('KİLİS')}"
-# puts "plaka.show('ÇAnkırı')  => #{plaka.show('ÇAnkırı')}"
-# puts "plaka.show(33)         => #{plaka.show(33)}"
-# puts "plaka.show(3)          => #{plaka.show(3)}"
-# puts "plaka.show('mersin')   => #{plaka.show('mersin')}"
-# puts "plaka.show('içel')     => #{plaka.show('içel')}"
+# puts "plaka.show(39)           => #{plaka.show(39)}"
+# puts "plaka.show('35')         => #{plaka.show('35')}"
+# puts "plaka.show('kilis')      => #{plaka.show('kilis')}"
+# puts "plaka.show('KİLİS')      => #{plaka.show('KİLİS')}"
+# puts "plaka.show('ÇAnkırı')    => #{plaka.show('ÇAnkırı')}"
+# puts "plaka.show(33)           => #{plaka.show(33)}"
+# puts "plaka.show(3)            => #{plaka.show(3)}"
+# puts "plaka.show('mersin')     => #{plaka.show('mersin')}"
+# puts "plaka.show('içel')       => #{plaka.show('içel')}"
 
-# puts "plaka.show('kamil')    => #{plaka.show('kamil')}"
-# puts "plaka.show(99)         => #{plaka.show(99)}"
+# puts "plaka.show('kamil')      => #{plaka.show('kamil')}"
+# puts "plaka.show(99)           => #{plaka.show(99)}"
 
-# puts plaka.valid?()
-# puts plaka.valid?(0)
-# puts plaka.valid?(39)
+# puts "plaka.valid?()           => #{plaka.valid?()}"
+# puts "plaka.valid?(0)          => #{plaka.valid?(0)}"
+# puts "plaka.valid?(39)         => #{plaka.valid?(39)}"
+# puts "plaka.valid?('')         => #{plaka.valid?('')}"
+# puts "plaka.valid?('39')       => #{plaka.valid?('39')}"
+# puts "plaka.valid?('antalya')  => #{plaka.valid?('antalya')}"
+# puts "plaka.valid?(' ')        => #{plaka.valid?(' ')}"
 
-# puts plaka.valid?('')
-# puts plaka.valid?('39')
-# puts plaka.valid?('antalya')
-# puts plaka.valid?(' ')
-
+puts "plaka.exists?('33')      => #{plaka.exists?('33')}"
+puts "plaka.exists?('0')       => #{plaka.exists?('0')}"
+puts "plaka.exists?('antalya') => #{plaka.exists?('antalya')}"
+puts "plaka.exists?('mersin')  => #{plaka.exists?('mersin')}"
+puts "plaka.exists?('içel')    => #{plaka.exists?('içel')}"
+puts "plaka.exists?('isviçre') => #{plaka.exists?('isviçre')}"
+puts "plaka.exists?(0)         => #{plaka.exists?(0)}"
+puts "plaka.exists?(33)        => #{plaka.exists?(33)}"
+puts "plaka.exists?(99)        => #{plaka.exists?(99)}"
