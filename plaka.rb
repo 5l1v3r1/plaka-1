@@ -6,9 +6,9 @@ using TurkishSupport
 class Plaka
   def initialize
     @codes = { 
-               '1'  => 'adana',          '2' => 'adıyaman',   '3' => ['afyon', 'afyonkarahisar'], 
-               '4'  => 'ağrı',          '5'  => 'amasya',     '6' => 'ankara',
-               '7'  => 'antalya',       '8'  => 'artvin',     '9' => 'aydın',
+               '1'  => 'adana',         '2' => 'adıyaman',     '3' => ['afyon', 'afyonkarahisar'], 
+               '4'  => 'ağrı',          '5'  => 'amasya',      '6' => 'ankara',
+               '7'  => 'antalya',       '8'  => 'artvin',      '9' => 'aydın',
                '10' => 'balıkesir',     '11' => 'bilecik',    '12' => 'bingöl',
                '13' => 'bitlis',        '14' => 'bolu',       '15' => 'burdur',
                '16' => 'bursa',         '17' => 'çanakkale',  '18' => 'çankırı',
