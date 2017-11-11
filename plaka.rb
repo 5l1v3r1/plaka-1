@@ -56,6 +56,7 @@ class Plaka
 
   def show(param = nil)
     param unless param.nil?
+    return false unless self.exists?(param)
 
     # convert parameter to string to verify whether it is a string or integer
     if param.to_i == 0    # it is a string
@@ -168,6 +169,7 @@ plaka = Plaka.new
 # puts "plaka.valid?('39')       => #{plaka.valid?('39')}"
 # puts "plaka.valid?('antalya')  => #{plaka.valid?('antalya')}"
 # puts "plaka.valid?(' ')        => #{plaka.valid?(' ')}"
+# puts "plaka.valid?('kamil')    => #{plaka.valid?(' ')}"
 
 # puts "plaka.exists?('33')      => #{plaka.exists?('33')}"
 # puts "plaka.exists?('0')       => #{plaka.exists?('0')}"
@@ -179,12 +181,12 @@ plaka = Plaka.new
 # puts "plaka.exists?(33)        => #{plaka.exists?(33)}"
 # puts "plaka.exists?(99)        => #{plaka.exists?(99)}"
 
-# puts plaka.has_many_names('afyon')
-# puts plaka.has_many_names('istanbul')
-# puts plaka.has_many_names(33)
-# puts plaka.has_many_names(34)
-# puts plaka.has_many_names('33')
-# puts plaka.has_many_names('34')
-# puts plaka.has_many_names('isviçre')
-# puts plaka.has_many_names(0)
-# puts plaka.has_many_names('0')
+# puts "plaka.has_many_names('afyon')       => #{plaka.has_many_names('afyon')}"
+# puts "plaka.has_many_names('istanbul')    => #{plaka.has_many_names('istanbul')}"
+# puts "plaka.has_many_names(33)            => #{plaka.has_many_names(33)}"
+# puts "plaka.has_many_names(34)            => #{plaka.has_many_names(34)}"
+# puts "plaka.has_many_names('33')          => #{plaka.has_many_names('33')}"
+# puts "plaka.has_many_names('34')          => #{plaka.has_many_names('34')}"
+# puts "plaka.has_many_names('isviçre')     => #{plaka.has_many_names('isviçre')}"
+# puts "plaka.has_many_names(0)             => #{plaka.has_many_names(0)}"
+# puts "plaka.has_many_names('0')           => #{plaka.has_many_names('0')}"
